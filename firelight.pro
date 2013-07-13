@@ -12,4 +12,4 @@ HEADERS += 	src/version.h \
 			src/scene.h
 
 INCLUDEPATH += /usr/include/python2.7
-LIBS += -lboost_python -lpython2.7
+LIBS += -lboost_python -lpython2.7 -lboost_filesystem

@@ -1,9 +1,11 @@
 """
 Hue Fade
 """
+import FirelightScene
+
 
 def setup():
-	pass
+	print "Extents: ", FirelightScene.extents()
 
 def draw(dt):
 	pass
