@@ -5,17 +5,17 @@
 #include "preset_helper.h"
 
 using namespace boost::python;
+using namespace boost::filesystem;
 
 
 int main(int, char **) {
 
   Py_Initialize();
 
-  // now time to insert the current working directory into the python path so module search can take advantage
-  // this must happen after python has been initialised
-  boost::filesystem::path workingDir = boost::filesystem::complete("./").normalize();
-  PyObject* sysPath = PySys_GetObject("path");
-  PyList_Insert( sysPath, 0, PyString_FromString(workingDir.string().c_str()));
+  // Add our CWD to the Python path
+  path cwd = complete("./").normalize();
+  PyObject* pythonPath = PySys_GetObject("path");
+  PyList_Insert(pythonPath, 0, PyString_FromString(cwd.string().c_str()));
 
   // Setup helper modules
   initFirelightScene();
