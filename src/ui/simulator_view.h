@@ -12,6 +12,9 @@ class SimulatorView : public QGraphicsView
 public:
 	SimulatorView(QWidget *parent = 0);
 
+protected:
+	void drawBackground(QPainter *painter, const QRectF &rect);
+
 private:
 	SimulatorScene *scene;
 };

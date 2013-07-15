@@ -92,6 +92,9 @@
            <enum>QFrame::Raised</enum>
           </property>
           <layout class="QGridLayout" name="gridLayout_2">
+           <property name="margin">
+            <number>3</number>
+           </property>
            <item row="0" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1">
              <property name="margin">
@@ -335,24 +338,6 @@
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="backgroundBrush">
-                <brush brushstyle="SolidPattern">
-                 <color alpha="255">
-                  <red>10</red>
-                  <green>0</green>
-                  <blue>93</blue>
-                 </color>
-                </brush>
-               </property>
-               <property name="foregroundBrush">
-                <brush brushstyle="SolidPattern">
-                 <color alpha="255">
-                  <red>44</red>
-                  <green>44</green>
-                  <blue>212</blue>
-                 </color>
-                </brush>
-               </property>
               </widget>
              </item>
             </layout>
@@ -375,6 +360,9 @@
            <enum>QFrame::Raised</enum>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
+           <property name="margin">
+            <number>3</number>
+           </property>
            <item row="0" column="0">
             <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,1">
              <property name="margin">
@@ -383,7 +371,7 @@
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_3">
                <property name="margin">
-                <number>3</number>
+                <number>0</number>
                </property>
                <item>
                 <widget class="QLabel" name="labelCurrentPreset">
@@ -395,7 +383,11 @@
                <item>
                 <widget class="QPushButton" name="buttonPickPreset">
                  <property name="text">
-                  <string>Pick Preset</string>
+                  <string>Choose</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../res/firelight.qrc">
+                   <normaloff>:/icons/script_go.png</normaloff>:/icons/script_go.png</iconset>
                  </property>
                 </widget>
                </item>

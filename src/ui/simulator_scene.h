@@ -10,9 +10,6 @@ class SimulatorScene : public QGraphicsScene
 public:
 	SimulatorScene();
 
-protected:
-	
-
 private:
 
 };
