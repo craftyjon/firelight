@@ -328,7 +328,7 @@
               </layout>
              </item>
              <item>
-              <widget class="QGraphicsView" name="graphicsView">
+              <widget class="SimulatorView" name="graphicsView">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                  <horstretch>0</horstretch>
@@ -576,6 +576,13 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SimulatorView</class>
+   <extends>QGraphicsView</extends>
+   <header>simulator_view.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../res/firelight.qrc"/>
  </resources>
