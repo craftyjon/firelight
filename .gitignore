@@ -21,3 +21,15 @@ moc_*.cpp
 
 # Binary targets
 firelight
+Debug/*
+Release/*
+GeneratedFiles/*
+Win32/*
+
+# Visual Studio
+*.ncb
+*.idb
+*.obj
+*.vspscc
+*.suo
+*.vcproj.*
