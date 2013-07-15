@@ -1,6 +1,7 @@
 #include <boost/python.hpp>
 #include <boost/filesystem.hpp>
 
+#include <QDebug>
 #include <QApplication>
 
 #include "firelight_scene.h"
@@ -12,32 +13,33 @@ using namespace boost::filesystem;
 
 int main(int argc, char **argv) {
 
-  Py_Initialize();
+	Py_Initialize();
 
-  // Add our CWD to the Python path
-  path cwd = complete("./").normalize();
-  PyObject* pythonPath = PySys_GetObject("path");
-  PyList_Insert(pythonPath, 0, PyString_FromString(cwd.string().c_str()));
+	// Add our CWD to the Python path
+	path cwd = complete("./").normalize();
+	PyObject* pythonPath = PySys_GetObject("path");
+	PyList_Insert(pythonPath, 0, PyString_FromString(cwd.string().c_str()));
 
-  // Setup helper modules
-  initFirelightScene();
+	// Setup helper modules
+	initFirelightScene();
 
-  try {  
+	try {
+		object hue_fade = import("src.presets.hue_fade");
 
-    
+		try {
+			hue_fade.attr("setup")();
+		} catch (error_already_set) {
+			qDebug() << "Setup of preset failed.";
+			PyErr_Print();
+		}  
+	} catch (error_already_set) {
+		qDebug() << "Failed to import preset.";
+		PyErr_Print();
+	}
 
-    object hue_fade = import("src.presets.hue_fade");
-    //PyRun_SimpleString("import FirelightScene");
+	QApplication app(argc, argv);
+	FirelightMain *mainWindow = new FirelightMain;
 
-    hue_fade.attr("setup")();
-
-  } catch (error_already_set) {
-    PyErr_Print();
-  }
-
-  QApplication app(argc, argv);
-  FirelightMain *mainWindow = new FirelightMain;
-
-  mainWindow->show();
-  return app.exec();
+	mainWindow->show();
+	return app.exec();
 }
