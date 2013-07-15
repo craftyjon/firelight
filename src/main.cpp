@@ -2,13 +2,16 @@
 #include <boost/python.hpp>
 #include <boost/filesystem.hpp>
 
-#include "preset_helper.h"
+#include <QApplication>
+
+#include "firelight_scene.h"
+#include "ui/firelight_main.h"
 
 using namespace boost::python;
 using namespace boost::filesystem;
 
 
-int main(int, char **) {
+int main(int argc, char **argv) {
 
   Py_Initialize();
 
@@ -33,5 +36,9 @@ int main(int, char **) {
     PyErr_Print();
   }
 
-  return 0;
+  QApplication app(argc, argv);
+  FirelightMain *mainWindow = new FirelightMain;
+
+  mainWindow->show();
+  return app.exec();
 }
