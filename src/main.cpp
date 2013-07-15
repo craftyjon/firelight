@@ -16,7 +16,8 @@ int main(int argc, char **argv) {
 	Py_Initialize();
 
 	// Add our CWD to the Python path
-	path cwd = complete("./").normalize();
+	path cwd = complete("./src/presets").normalize();
+	qDebug("Our path is %s", cwd.string().c_str());
 	PyObject* pythonPath = PySys_GetObject("path");
 	PyList_Insert(pythonPath, 0, PyString_FromString(cwd.string().c_str()));
 
@@ -24,7 +25,7 @@ int main(int argc, char **argv) {
 	initFirelightScene();
 
 	try {
-		object hue_fade = import("src.presets.hue_fade");
+		object hue_fade = import("hue_fade");
 
 		try {
 			hue_fade.attr("setup")();
