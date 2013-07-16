@@ -10,12 +10,14 @@ SOURCES += 	src/main.cpp \
 			src/ui/simulator_scene.cpp
 
 HEADERS += 	src/version.h \
-			src/preset.h \
-			src/firelight_scene.h \
-			src/scene.h \
+			src/python/preset.h \
+			src/python/scene.h \
+			src/python/firelight_python_module.h \
 			src/ui/firelight_main.h \
 			src/ui/simulator_view.h \
-			src/ui/simulator_scene.h
+			src/ui/simulator_scene.h \
+			src/thirdparty/boost_python_qstring.h \
+			src/thirdparty/boost_python_stdout.h
 
 FORMS += 	src/ui/firelight_main.ui
 

@@ -43,42 +43,44 @@ using namespace firelight::python;
 int main(int argc, char **argv) {
 
     stdout_buffer::initPythonStdout();
-	Py_Initialize();
+    Py_Initialize();
 
     std::string python_console;
     stdout_buffer::enablePythonStdout(&python_console);
 
-	// Add our CWD to the Python path
-	boost::filesystem::path cwd = boost::filesystem::complete("./src/presets").normalize();
-	qDebug("Our path is %s", cwd.string().c_str());
-	PyObject* pythonPath = PySys_GetObject("path");
-	PyList_Insert(pythonPath, 0, PyString_FromString(cwd.string().c_str()));
+    // Add our CWD to the Python path
+    boost::filesystem::path cwd = boost::filesystem::complete("./src/presets").normalize();
+    qDebug("Our path is %s", cwd.string().c_str());
+    PyObject* pythonPath = PySys_GetObject("path");
+    PyList_Insert(pythonPath, 0, PyString_FromString(cwd.string().c_str()));
 
-	// Setup helper modules
-	initFirelight();
+    // Setup helper modules
+    initFirelight();
     initBoostPythonQString();
 
-	try {
-		bp::object hue_fade = bp::import("hue_fade");
+    try {
+        bp::object hue_fade = bp::import("hue_fade");
 
-		try {
+        try {
             bp::object hue_fade_inst = hue_fade.attr("HueFade")();
-			hue_fade_inst.attr("on_load")();
-			
+            hue_fade_inst.attr("on_load")();
+
+            bp::object np_array = hue_fade_inst.attr("draw")();
+            
         } catch (bp::error_already_set) {
-			qDebug() << "Setup of preset failed.";
-			PyErr_Print();
-		}  
-	} catch (bp::error_already_set) {
-		qDebug() << "Failed to import preset.";
-		PyErr_Print();
-	}
+            qDebug() << "Setup of preset failed.";
+            PyErr_Print();
+        }  
+    } catch (bp::error_already_set) {
+        qDebug() << "Failed to import preset.";
+        PyErr_Print();
+    }
 
     qDebug() << QString::fromStdString(python_console);
 
-	QApplication app(argc, argv);
-	FirelightMain *mainWindow = new FirelightMain;
+    QApplication app(argc, argv);
+    FirelightMain *mainWindow = new FirelightMain;
 
-	mainWindow->show();
-	return app.exec();
+    mainWindow->show();
+    return app.exec();
 }
