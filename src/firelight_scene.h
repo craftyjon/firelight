@@ -1,6 +1,6 @@
 #include <boost/python.hpp>
 
-using namespace boost::python;
+namespace bp = boost::python;
 
 namespace firelight {
 namespace python_modules {
@@ -17,5 +17,5 @@ PyObject* extents(void) {
 
 BOOST_PYTHON_MODULE(FirelightScene)
 {
-    def("extents", firelight::python_modules::scene::extents);
+    bp::def("extents", firelight::python_modules::scene::extents);
 }

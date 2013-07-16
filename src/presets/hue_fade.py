@@ -5,7 +5,8 @@ import FirelightScene
 
 
 def setup():
-	print "Extents: ", FirelightScene.extents()
+	str = "Extents: ", FirelightScene.extents()
+	return str
 
 def draw(dt):
 	pass
