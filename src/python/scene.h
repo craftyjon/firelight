@@ -19,3 +19,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#ifndef _SCENE_H
+#define _SCENE_H
+
+namespace firelight { namespace python {
+
+class Scene
+{
+
+};
+
+}}
+
+#endif

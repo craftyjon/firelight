@@ -22,6 +22,21 @@
 #ifndef _FIRELIGHT_PYTHON_MODULE_H
 #define _FIRELIGHT_PYTHON_MODULE_H
 
+#include <boost/python.hpp>
 
+#include "preset.h"
+#include "scene.h"
+
+namespace bp = boost::python;
+
+namespace firelight { namespace python {
+
+BOOST_PYTHON_MODULE(Firelight)
+{
+    bp::class_<Preset, boost::noncopyable>("Preset", bp::no_init);
+    bp::class_<Scene>("Scene", bp::no_init);
+}
+
+}}
 
 #endif

@@ -26,16 +26,27 @@
 #include <QString>
 #include <QApplication>
 
-#include "firelight_scene.h"
+#include "thirdparty/boost_python_qstring.h"
+#include "thirdparty/boost_python_stdout.h"
+
+#include "python/firelight_python_module.h"
 #include "ui/firelight_main.h"
-#include "util/boost_python_qstring.h"
+
 
 namespace bp = boost::python;
+
+namespace stdout_buffer = firelight::thirdparty::stdout_buffer;
+
+using namespace firelight::python;
 
 
 int main(int argc, char **argv) {
 
+    stdout_buffer::initPythonStdout();
 	Py_Initialize();
+
+    std::string python_console;
+    stdout_buffer::enablePythonStdout(&python_console);
 
 	// Add our CWD to the Python path
 	boost::filesystem::path cwd = boost::filesystem::complete("./src/presets").normalize();
@@ -44,16 +55,15 @@ int main(int argc, char **argv) {
 	PyList_Insert(pythonPath, 0, PyString_FromString(cwd.string().c_str()));
 
 	// Setup helper modules
-	initFirelightScene();
+	initFirelight();
     initBoostPythonQString();
-
-	QString result;
 
 	try {
 		bp::object hue_fade = bp::import("hue_fade");
 
 		try {
-			result = bp::extract<QString>(hue_fade.attr("setup")());
+            bp::object hue_fade_inst = hue_fade.attr("HueFade")();
+			//hue_fade_inst.attr("on_load")();
 			
         } catch (bp::error_already_set) {
 			qDebug() << "Setup of preset failed.";
@@ -64,7 +74,7 @@ int main(int argc, char **argv) {
 		PyErr_Print();
 	}
 
-	qDebug() << result;
+    qDebug() << QString::fromStdString(python_console);
 
 	QApplication app(argc, argv);
 	FirelightMain *mainWindow = new FirelightMain;

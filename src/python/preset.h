@@ -19,3 +19,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#ifndef _PRESET_H
+#define _PRESET_H
+
+namespace firelight { namespace python {
+
+class Preset
+{
+public:
+    Preset() {}
+
+    // Called once each time the preset is loaded.  Use for one-time initialization
+    virtual void on_load(void) =0;
+
+    // Called once when a preset instance is about to go active.  Use for resetting random variables, etc
+    virtual void prepare(void) =0;
+
+    // Called each tick to render the preset
+    virtual void draw(void) =0;
+};
+
+}}
+
+#endif
