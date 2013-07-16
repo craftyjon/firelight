@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
 
 		try {
             bp::object hue_fade_inst = hue_fade.attr("HueFade")();
-			//hue_fade_inst.attr("on_load")();
+			hue_fade_inst.attr("on_load")();
 			
         } catch (bp::error_already_set) {
 			qDebug() << "Setup of preset failed.";

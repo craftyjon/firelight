@@ -33,7 +33,7 @@ namespace firelight { namespace python {
 
 BOOST_PYTHON_MODULE(Firelight)
 {
-    bp::class_<Preset, boost::noncopyable>("Preset", bp::no_init);
+    bp::class_<Preset, boost::noncopyable>("Preset", bp::init<>());
     bp::class_<Scene>("Scene", bp::no_init);
 }
 

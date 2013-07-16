@@ -30,13 +30,13 @@ public:
     Preset() {}
 
     // Called once each time the preset is loaded.  Use for one-time initialization
-    virtual void on_load(void) =0;
+    virtual void on_load(void) {}
 
     // Called once when a preset instance is about to go active.  Use for resetting random variables, etc
-    virtual void prepare(void) =0;
+    virtual void prepare(void) {}
 
     // Called each tick to render the preset
-    virtual void draw(void) =0;
+    virtual void draw(void) {}
 };
 
 }}
