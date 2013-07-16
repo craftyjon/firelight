@@ -1,12 +1,14 @@
 """
 Hue Fade
 """
-import FirelightScene
+from firelight import Preset
+from firelight import Scene
 
 
-def setup():
-	str = "Extents: ", FirelightScene.extents()
-	return str
+class HueFade(FirelightPreset):
+	def setup():
+		str = "Extents: ", Scene.extents()
+		return str
 
-def draw(dt):
-	pass
+	def draw(dt):
+		pass
