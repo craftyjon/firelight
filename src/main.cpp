@@ -21,6 +21,7 @@
 
 #include <boost/python.hpp>
 #include <boost/filesystem.hpp>
+#include <boost/numpy.hpp>
 
 #include <QDebug>
 #include <QString>
@@ -34,6 +35,7 @@
 
 
 namespace bp = boost::python;
+namespace np = boost::numpy;
 
 namespace stdout_buffer = firelight::thirdparty::stdout_buffer;
 
@@ -44,6 +46,7 @@ int main(int argc, char **argv) {
 
     stdout_buffer::initPythonStdout();
     Py_Initialize();
+    np::initialize();
 
     std::string python_console;
     stdout_buffer::enablePythonStdout(&python_console);
@@ -66,6 +69,8 @@ int main(int argc, char **argv) {
             hue_fade_inst.attr("on_load")();
 
             bp::object np_array = hue_fade_inst.attr("draw")();
+            np::ndarray ndarr = bp::extract<np::ndarray>(np_array);
+            qDebug() << bp::extract<char const*>(bp::str(ndarr));
             
         } catch (bp::error_already_set) {
             qDebug() << "Setup of preset failed.";
