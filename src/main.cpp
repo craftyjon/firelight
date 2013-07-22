@@ -68,8 +68,7 @@ int main(int argc, char **argv) {
             bp::object hue_fade_inst = hue_fade.attr("HueFade")();
             hue_fade_inst.attr("on_load")();
 
-            bp::object np_array = hue_fade_inst.attr("draw")();
-            np::ndarray ndarr = bp::extract<np::ndarray>(np_array);
+            np::ndarray ndarr = bp::call_method<np::ndarray>(hue_fade_inst.ptr(), "draw");
             qDebug() << bp::extract<char const*>(bp::str(ndarr));
             
         } catch (bp::error_already_set) {
