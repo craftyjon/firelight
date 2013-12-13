@@ -24,9 +24,30 @@
 FirelightMain::FirelightMain(QWidget *parent) : QMainWindow(parent)
 {
 	setupUi(this);
+
+    connect(btnShowHideControls, SIGNAL(clicked()), this, SLOT(btnShowHideControlsClicked()));
+
+    _toolsVisible = true;
 }
 
 
 void FirelightMain::quit()
 {
+}
+
+
+void FirelightMain::btnShowHideControlsClicked()
+{
+    if (_toolsVisible) {
+        framePresetParams->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
+        framePresetParams->setMaximumWidth(0);
+        btnShowHideControls->setText("\u25C0");
+        _toolsVisible = false;
+    } else {
+        framePresetParams->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        framePresetParams->setMaximumWidth(16777215);
+        btnShowHideControls->setText("\u25B6");
+        _toolsVisible = true;
+    }
+    update();
 }

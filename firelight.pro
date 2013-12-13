@@ -1,30 +1,35 @@
-TEMPLATE = app
-CONFIG += qt debug
+QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 TARGET = firelight
-QT += core gui network
-DEFINES += QT_LARGEFILE_SUPPORT QT_DLL QT_NETWORK_LIB
+TEMPLATE = app
 
-SOURCES += 	src/main.cpp \
-			src/ui/firelight_main.cpp \
-			src/ui/simulator_view.cpp \
-			src/ui/simulator_scene.cpp
+SOURCES += \
+    src/main.cpp \
+    src/ui/firelight_main.cpp \
+    src/ui/simulator_scene.cpp \
+    src/ui/simulator_view.cpp
 
-HEADERS += 	src/version.h \
-			src/python/preset.h \
-			src/python/scene.h \
-			src/python/firelight_python_module.h \
-			src/ui/firelight_main.h \
-			src/ui/simulator_view.h \
-			src/ui/simulator_scene.h \
-			src/thirdparty/boost_python_qstring.h \
-			src/thirdparty/boost_python_stdout.h
+HEADERS += \
+    src/version.h \
+    src/ui/firelight_main.h \
+    src/ui/simulator_scene.h \
+    src/ui/simulator_view.h \
+    src/python/firelight_python_module.h \
+    src/python/preset.h \
+    src/python/scene.h \
+    src/thirdparty/boost_python_qstring.h \
+    src/thirdparty/boost_python_stdout.h
 
-FORMS += 	src/ui/firelight_main.ui
+FORMS += \
+    src/ui/firelight_main.ui
 
-RESOURCES +=	src/res/firelight.qrc
+OTHER_FILES += \
+    src/presets/hue_fade.py
 
-INCLUDEPATH += /usr/include/python2.7
-LIBS += -lboost_python -lpython2.7 -lboost_filesystem
+INCLUDEPATH += src/ src/ui /usr/include/python2.7
+LIBS += -lboost_system -lboost_filesystem -lboost_python -lboost_numpy -lpython2.7
 
-UI_DIR = src/ui/
-RCC_DIR = src/res/
+RESOURCES += \
+    src/res/firelight.qrc

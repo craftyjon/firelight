@@ -24,11 +24,11 @@
 
 #include <QtCore>
 #include <QtGui>
-#include <QtGui/QMainWindow>
+#include <QMainWindow>
 
 #include "ui_firelight_main.h"
 
-class FirelightMain : public QMainWindow, private Ui_FirelightMainWindow
+class FirelightMain : public QMainWindow, private Ui_FirelightMain
 {
 	Q_OBJECT
 
@@ -37,6 +37,11 @@ public:
 
 public slots:
 	void quit();
+
+    void btnShowHideControlsClicked();
+
+private:
+    bool _toolsVisible;
 
 };
 
