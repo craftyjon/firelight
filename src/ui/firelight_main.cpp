@@ -25,7 +25,11 @@ FirelightMain::FirelightMain(QWidget *parent) : QMainWindow(parent)
 {
 	setupUi(this);
 
+    // Connect UI
     connect(btnShowHideControls, SIGNAL(clicked()), this, SLOT(btnShowHideControlsClicked()));
+    connect(btnShowHideGrid, SIGNAL(clicked(bool)), this->graphicsView->scene(), SLOT(ShowGrid(bool)));
+    connect(btnGridEnlarge, SIGNAL(clicked()), this->graphicsView->scene(), SLOT(IncreaseGridScale()));
+    connect(btnGridReduce, SIGNAL(clicked()), this->graphicsView->scene(), SLOT(DecreaseGridScale()));
 
     _toolsVisible = true;
 }
@@ -42,12 +46,15 @@ void FirelightMain::btnShowHideControlsClicked()
         framePresetParams->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Expanding);
         framePresetParams->setMaximumWidth(0);
         btnShowHideControls->setText("\u25C0");
+        btnShowHideControls->setToolTip("Show Controls");
         _toolsVisible = false;
     } else {
         framePresetParams->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         framePresetParams->setMaximumWidth(16777215);
         btnShowHideControls->setText("\u25B6");
+        btnShowHideControls->setToolTip("Hide Controls");
         _toolsVisible = true;
     }
+    btnShowHideControls->clearFocus();
     update();
 }

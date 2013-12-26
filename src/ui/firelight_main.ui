@@ -145,7 +145,7 @@
                 <number>0</number>
                </property>
                <item>
-                <widget class="QPushButton" name="buttonFixtureModeSelect">
+                <widget class="QPushButton" name="btnFixtureModeSelect">
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
                  </property>
@@ -174,7 +174,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="buttonFixtureModeAdd">
+                <widget class="QPushButton" name="btnFixtureModeAdd">
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
                  </property>
@@ -203,7 +203,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="buttonFixtureModeDelete">
+                <widget class="QPushButton" name="btnFixtureModeDelete">
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
                  </property>
@@ -239,7 +239,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="buttonFixtureShowLabels">
+                <widget class="QPushButton" name="btnFixtureShowLabels">
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
                  </property>
@@ -268,7 +268,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="buttonLockScene">
+                <widget class="QPushButton" name="btnLockScene">
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
                  </property>
@@ -297,7 +297,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="buttonSetCenterReference">
+                <widget class="QPushButton" name="btnSetCenterReference">
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
                  </property>
@@ -326,7 +326,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="buttonSetReferenceImage">
+                <widget class="QPushButton" name="btnSetReferenceImage">
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
                  </property>
@@ -339,6 +339,93 @@
                  <property name="icon">
                   <iconset resource="../res/firelight.qrc">
                    <normaloff>:/icons/photo.png</normaloff>:/icons/photo.png</iconset>
+                 </property>
+                 <property name="checkable">
+                  <bool>false</bool>
+                 </property>
+                 <property name="checked">
+                  <bool>false</bool>
+                 </property>
+                 <property name="autoExclusive">
+                  <bool>false</bool>
+                 </property>
+                 <property name="flat">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btnShowHideGrid">
+                 <property name="focusPolicy">
+                  <enum>Qt::NoFocus</enum>
+                 </property>
+                 <property name="toolTip">
+                  <string>Show Grid</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../res/firelight.qrc">
+                   <normaloff>:/icons/grid.png</normaloff>:/icons/grid.png</iconset>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                 <property name="autoExclusive">
+                  <bool>false</bool>
+                 </property>
+                 <property name="flat">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btnGridEnlarge">
+                 <property name="focusPolicy">
+                  <enum>Qt::NoFocus</enum>
+                 </property>
+                 <property name="toolTip">
+                  <string>Increase Grid Spacing</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../res/firelight.qrc">
+                   <normaloff>:/icons/grid_enlarge.png</normaloff>:/icons/grid_enlarge.png</iconset>
+                 </property>
+                 <property name="checkable">
+                  <bool>false</bool>
+                 </property>
+                 <property name="checked">
+                  <bool>false</bool>
+                 </property>
+                 <property name="autoExclusive">
+                  <bool>false</bool>
+                 </property>
+                 <property name="flat">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btnGridReduce">
+                 <property name="focusPolicy">
+                  <enum>Qt::NoFocus</enum>
+                 </property>
+                 <property name="toolTip">
+                  <string>Decrease Grid Spacing</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../res/firelight.qrc">
+                   <normaloff>:/icons/grid_reduce.png</normaloff>:/icons/grid_reduce.png</iconset>
                  </property>
                  <property name="checkable">
                   <bool>false</bool>
@@ -437,8 +524,11 @@
                <kerning>true</kerning>
               </font>
              </property>
+             <property name="toolTip">
+              <string>Hide Controls</string>
+             </property>
              <property name="text">
-              <string notr="true">»</string>
+              <string notr="true">▶</string>
              </property>
              <property name="flat">
               <bool>true</bool>

@@ -25,15 +25,9 @@
 
 SimulatorView::SimulatorView(QWidget *parent) : QGraphicsView(parent)
 {
-	scene = new SimulatorScene();
-	this->setScene(scene);
+    // Init graphics scene
+    _scene = new SimulatorScene();
+    setScene(_scene);
 	setBackgroundRole(QPalette::Base);
     setAutoFillBackground(true);
-}
-
-
-void SimulatorView::drawBackground(QPainter *painter, const QRectF &rect)
-{
-	painter->setBrush(QColor(10, 10, 10, 255));
-	painter->drawRect(rect);
 }

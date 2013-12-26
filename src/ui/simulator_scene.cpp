@@ -28,5 +28,64 @@
 
 SimulatorScene::SimulatorScene() : QGraphicsScene()
 {
+    // Set Defaults
+    _showGrid = true;
+    _gridScale = 50;
 
+    this->setSceneRect(-500, -500, 1000, 1000);
+}
+
+
+void SimulatorScene::drawBackground(QPainter *painter, const QRectF &rect)
+{
+    float gridpos = 0.0;
+
+    // Grid drawn as part of background if enabled
+    if (_showGrid)
+    {
+        painter->fillRect(rect, QColor(10, 10, 10, 255));
+        painter->setBrush(QColor(200, 200, 200, 255));
+
+        gridpos = (float)((int)rect.left() / _gridScale) * _gridScale;
+
+        while (gridpos < rect.left() + rect.width())
+        {
+            painter->drawLine(gridpos, rect.bottom(), gridpos, rect.top());
+            gridpos += _gridScale;
+        }
+
+        gridpos = (float)((int)rect.top() / _gridScale) * _gridScale;
+
+        while (gridpos < rect.top() + rect.height())
+        {
+            painter->drawLine(rect.left(), gridpos, rect.right(), gridpos);
+            gridpos += _gridScale;
+        }
+    }
+    else
+    {
+        painter->setBrush(QColor(10, 10, 10, 255));
+        painter->drawRect(rect);
+    }
+}
+
+
+void SimulatorScene::ShowGrid(bool show)
+{
+    _showGrid = show;
+    update();
+}
+
+
+void SimulatorScene::IncreaseGridScale()
+{
+    if (_gridScale < MAX_GRID_SCALE) _gridScale += GRID_SCALE_DELTA;
+    update();
+}
+
+
+void SimulatorScene::DecreaseGridScale()
+{
+    if (_gridScale > MIN_GRID_SCALE) _gridScale -= GRID_SCALE_DELTA;
+    update();
 }
