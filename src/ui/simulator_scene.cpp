@@ -38,19 +38,28 @@ SimulatorScene::SimulatorScene() : QGraphicsScene()
 
 void SimulatorScene::drawBackground(QPainter *painter, const QRectF &rect)
 {
+    static QPen thinPen = QPen(QBrush(QColor(150, 150, 150, 255)), 1.0);
+    static QPen thickPen = QPen(QBrush(QColor(150, 150, 200, 255)), 3.0);
     float gridpos = 0.0;
 
     // Grid drawn as part of background if enabled
     if (_showGrid)
     {
         painter->fillRect(rect, QColor(10, 10, 10, 255));
-        painter->setBrush(QColor(200, 200, 200, 255));
+        painter->setPen(thinPen);
 
         gridpos = (float)((int)rect.left() / _gridScale) * _gridScale;
 
         while (gridpos < rect.left() + rect.width())
         {
+            if (gridpos == 0.0)
+                painter->setPen(thickPen);
+
             painter->drawLine(gridpos, rect.bottom(), gridpos, rect.top());
+
+            if (gridpos == 0.0)
+                painter->setPen(thinPen);
+
             gridpos += _gridScale;
         }
 
@@ -58,7 +67,14 @@ void SimulatorScene::drawBackground(QPainter *painter, const QRectF &rect)
 
         while (gridpos < rect.top() + rect.height())
         {
+            if (gridpos == 0.0)
+                painter->setPen(thickPen);
+
             painter->drawLine(rect.left(), gridpos, rect.right(), gridpos);
+
+            if (gridpos == 0.0)
+                painter->setPen(thinPen);
+
             gridpos += _gridScale;
         }
     }

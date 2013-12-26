@@ -132,6 +132,9 @@
              </property>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_2">
+               <property name="sizeConstraint">
+                <enum>QLayout::SetDefaultConstraint</enum>
+               </property>
                <property name="leftMargin">
                 <number>0</number>
                </property>
@@ -146,6 +149,18 @@
                </property>
                <item>
                 <widget class="QPushButton" name="btnFixtureModeSelect">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>40</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
                  </property>
@@ -175,6 +190,24 @@
                </item>
                <item>
                 <widget class="QPushButton" name="btnFixtureModeAdd">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>40</width>
+                   <height>32</height>
+                  </size>
+                 </property>
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
                  </property>
@@ -204,6 +237,18 @@
                </item>
                <item>
                 <widget class="QPushButton" name="btnFixtureModeDelete">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>40</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
                  </property>
@@ -240,6 +285,18 @@
                </item>
                <item>
                 <widget class="QPushButton" name="btnFixtureShowLabels">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>40</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
                  </property>
@@ -269,6 +326,18 @@
                </item>
                <item>
                 <widget class="QPushButton" name="btnLockScene">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>40</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
                  </property>
@@ -298,6 +367,18 @@
                </item>
                <item>
                 <widget class="QPushButton" name="btnSetCenterReference">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>40</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
                  </property>
@@ -327,6 +408,18 @@
                </item>
                <item>
                 <widget class="QPushButton" name="btnSetReferenceImage">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>40</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
                  </property>
@@ -356,6 +449,18 @@
                </item>
                <item>
                 <widget class="QPushButton" name="btnShowHideGrid">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>40</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
                  </property>
@@ -385,6 +490,18 @@
                </item>
                <item>
                 <widget class="QPushButton" name="btnGridEnlarge">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>40</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
                  </property>
@@ -414,6 +531,18 @@
                </item>
                <item>
                 <widget class="QPushButton" name="btnGridReduce">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>40</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="focusPolicy">
                   <enum>Qt::NoFocus</enum>
                  </property>
