@@ -19,34 +19,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef _SIMULATOR_SCENE_H
-#define _SIMULATOR_SCENE_H
+#ifndef _FIXTURE_ITEM_H
+#define _FIXTURE_ITEM_H
 
-#define DEFAULT_GRID_SCALE 20
-#define MAX_GRID_SCALE 100
-#define MIN_GRID_SCALE 10
-#define GRID_SCALE_DELTA 10
+#include <QGraphicsObject>
 
-#include <QGraphicsScene>
-
-class SimulatorScene : public QGraphicsScene
+class FixtureItem : public QGraphicsObject
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	SimulatorScene();
+    FixtureItem(QGraphicsItem *parent = 0);
+
+signals:
 
 public slots:
-    void ShowGrid(bool show);
-    void IncreaseGridScale(void);
-    void DecreaseGridScale(void);
-
-protected:
-    void drawBackground(QPainter *painter, const QRectF &rect);
-
-private:
-    bool _showGrid;
-    int _gridScale;
 
 };
 

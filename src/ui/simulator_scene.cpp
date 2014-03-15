@@ -25,14 +25,18 @@
 #include <QDebug>
 
 #include "simulator_scene.h"
+#include "fixture_item.h"
 
 SimulatorScene::SimulatorScene() : QGraphicsScene()
 {
     // Set Defaults
     _showGrid = true;
-    _gridScale = 50;
+    _gridScale = DEFAULT_GRID_SCALE;
 
-    this->setSceneRect(-500, -500, 1000, 1000);
+    setSceneRect(-500, -500, 1000, 1000);
+
+   // FixtureItem *fix = new FixtureItem;
+  //  addItem(fix);
 }
 
 
@@ -40,7 +44,7 @@ void SimulatorScene::drawBackground(QPainter *painter, const QRectF &rect)
 {
     static QPen thinPen = QPen(QBrush(QColor(150, 150, 150, 255)), 1.0);
     static QPen thickPen = QPen(QBrush(QColor(150, 150, 200, 255)), 3.0);
-    float gridpos = 0.0;
+    float gx = 0.0, gy = 0.0, y = 0.0;
 
     // Grid drawn as part of background if enabled
     if (_showGrid)
@@ -48,34 +52,29 @@ void SimulatorScene::drawBackground(QPainter *painter, const QRectF &rect)
         painter->fillRect(rect, QColor(10, 10, 10, 255));
         painter->setPen(thinPen);
 
-        gridpos = (float)((int)rect.left() / _gridScale) * _gridScale;
+        gx = (float)((int)rect.left() / _gridScale) * _gridScale;
+        gy = (float)((int)rect.top() / _gridScale) * _gridScale;
 
-        while (gridpos < rect.left() + rect.width())
+        while (gx < rect.left() + rect.width())
         {
-            if (gridpos == 0.0)
-                painter->setPen(thickPen);
+            if (gx == 0.0)
+            {
+                painter->drawLine(gx, rect.bottom(), gx, rect.top());
+            }
+            else
+            {
+                for (y = gy; y <= (rect.top() + rect.height()); y += _gridScale)
+                {
+                    painter->drawPoint(gx, y);
+                }
+            }
 
-            painter->drawLine(gridpos, rect.bottom(), gridpos, rect.top());
-
-            if (gridpos == 0.0)
-                painter->setPen(thinPen);
-
-            gridpos += _gridScale;
+            gx += _gridScale;
         }
 
-        gridpos = (float)((int)rect.top() / _gridScale) * _gridScale;
-
-        while (gridpos < rect.top() + rect.height())
+        if ((rect.top() <= 0.0) && ((rect.top() + rect.height()) >= 0.0))
         {
-            if (gridpos == 0.0)
-                painter->setPen(thickPen);
-
-            painter->drawLine(rect.left(), gridpos, rect.right(), gridpos);
-
-            if (gridpos == 0.0)
-                painter->setPen(thinPen);
-
-            gridpos += _gridScale;
+            painter->drawLine(rect.left(), 0.0, rect.right(), 0.0);
         }
     }
     else
