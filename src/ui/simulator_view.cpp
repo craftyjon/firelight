@@ -28,6 +28,74 @@ SimulatorView::SimulatorView(QWidget *parent) : QGraphicsView(parent)
     // Init graphics scene
     _scene = new SimulatorScene();
     setScene(_scene);
-	setBackgroundRole(QPalette::Base);
+    setBackgroundRole(QPalette::Base);
     setAutoFillBackground(true);
+
+    setFocusPolicy(Qt::NoFocus);
+
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    _mousePanActive = false;
+    _mouseZoomActive = false;
+}
+
+
+void SimulatorView::centerView()
+{
+    centerOn(0, 0);
+}
+
+
+void SimulatorView::wheelEvent(QWheelEvent *event)
+{
+    // Trap wheel event to disable scrolling
+    Q_UNUSED(event);
+}
+
+
+void SimulatorView::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::MidButton)
+    {
+        // Ctrl + middle => Zoom
+        if (false)
+        {
+
+        }
+        // No modifier => Pan
+        else
+        {
+            qDebug() << "Pan start";
+            _mousePanActive = true;
+            _mousePanStart = event->pos();
+        }
+    }
+
+    QGraphicsView::mousePressEvent(event);
+}
+
+
+void SimulatorView::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (_mousePanActive)
+    {
+        qDebug() << "Pan end";
+        _mousePanActive = false;
+    }
+
+    QGraphicsView::mouseReleaseEvent(event);
+}
+
+
+void SimulatorView::mouseMoveEvent(QMouseEvent *event)
+{
+    if (_mousePanActive)
+    {
+        qDebug() << "Pan";
+        QPoint delta = event->pos() - _mousePanStart;
+        translate(delta.x(), delta.y());
+    }
+
+    QGraphicsView::mouseMoveEvent(event);
 }

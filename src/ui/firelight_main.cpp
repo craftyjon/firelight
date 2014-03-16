@@ -24,12 +24,7 @@
 FirelightMain::FirelightMain(QWidget *parent) : QMainWindow(parent)
 {
 	setupUi(this);
-
-    // Connect UI
-    connect(btnShowHideControls, SIGNAL(clicked()), this, SLOT(btnShowHideControlsClicked()));
-    connect(btnShowHideGrid, SIGNAL(clicked(bool)), this->graphicsView->scene(), SLOT(ShowGrid(bool)));
-    connect(btnGridEnlarge, SIGNAL(clicked()), this->graphicsView->scene(), SLOT(IncreaseGridScale()));
-    connect(btnGridReduce, SIGNAL(clicked()), this->graphicsView->scene(), SLOT(DecreaseGridScale()));
+    connectUi();
 
     _toolsVisible = true;
 }
@@ -37,6 +32,19 @@ FirelightMain::FirelightMain(QWidget *parent) : QMainWindow(parent)
 
 void FirelightMain::quit()
 {
+}
+
+
+void FirelightMain::connectUi()
+{
+    // Main UI
+    connect(btnShowHideControls, SIGNAL(clicked()), this, SLOT(btnShowHideControlsClicked()));
+
+    // Simulator Controls
+    connect(btnShowHideGrid, SIGNAL(clicked(bool)), this->graphicsView->scene(), SLOT(ShowGrid(bool)));
+    connect(btnGridEnlarge, SIGNAL(clicked()), this->graphicsView->scene(), SLOT(IncreaseGridScale()));
+    connect(btnGridReduce, SIGNAL(clicked()), this->graphicsView->scene(), SLOT(DecreaseGridScale()));
+    connect(btnCenterView, SIGNAL(clicked()), this->graphicsView, SLOT(centerView()));
 }
 
 

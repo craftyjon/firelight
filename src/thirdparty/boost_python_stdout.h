@@ -12,8 +12,8 @@
 
 #include <boost/python.hpp>
 
-namespace firelight { 
-    namespace thirdparty { 
+namespace firelight {
+    namespace thirdparty {
         namespace stdout_buffer {
 
 // Internal state
@@ -33,6 +33,9 @@ struct Stdout
 
 PyObject* Stdout_write(PyObject* self, PyObject* args)
 {
+    Q_UNUSED(self);
+    Q_UNUSED(args);
+
     std::size_t written(0);
 
     if (g_buffer)
@@ -46,13 +49,15 @@ PyObject* Stdout_write(PyObject* self, PyObject* args)
 
         written = str.size();
     }
-    
+
     return PyLong_FromSize_t(written);
 }
 
 
 PyObject* Stdout_flush(PyObject* self, PyObject* args)
 {
+    Q_UNUSED(self);
+    Q_UNUSED(args);
     // no-op
     return Py_BuildValue("");
 }
@@ -109,7 +114,7 @@ PyTypeObject StdoutType =
 };
 
 
-PyMODINIT_FUNC PyInit_stdout_buffer(void) 
+PyMODINIT_FUNC PyInit_stdout_buffer(void)
 {
     g_stdout = 0;
     g_stdout_saved = 0;

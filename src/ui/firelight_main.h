@@ -41,6 +41,8 @@ public slots:
     void btnShowHideControlsClicked();
 
 private:
+    void connectUi(void);
+
     bool _toolsVisible;
 
 };

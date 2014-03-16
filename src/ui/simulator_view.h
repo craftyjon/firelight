@@ -23,19 +23,32 @@
 #define _SIMULATOR_VIEW_H
 
 #include <QGraphicsView>
+#include <QPointF>
+#include <QMouseEvent>
 
 #include "simulator_scene.h"
 
 class SimulatorView : public QGraphicsView
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	SimulatorView(QWidget *parent = 0);
+    SimulatorView(QWidget *parent = 0);
+
+    void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void wheelEvent(QWheelEvent *event);
+
+public slots:
+    void centerView(void);
 
 private:
     SimulatorScene *_scene;
 
+    bool _mousePanActive;
+    bool _mouseZoomActive;
+    QPoint _mousePanStart;
 };
 
 #endif

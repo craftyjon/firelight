@@ -83,5 +83,6 @@
         <file>icons/grid.png</file>
         <file>icons/grid_enlarge.png</file>
         <file>icons/grid_reduce.png</file>
+        <file>icons/grid_center.png</file>
     </qresource>
 </RCC>
