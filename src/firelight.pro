@@ -8,8 +8,7 @@ SOURCES += \
     ui/simulator_scene.cpp \
     ui/simulator_view.cpp \
     ui/fixture_item.cpp \
-    python/preset.cpp \
-    python/preset_manager.cpp
+    preset_manager.cpp
 
 HEADERS += \
     version.h \
@@ -22,7 +21,10 @@ HEADERS += \
     thirdparty/boost_python_qstring.h \
     thirdparty/boost_python_stdout.h \
     ui/fixture_item.h \
-    python/preset_manager.h
+    preset_manager.h \
+    python/parameters.h \
+    colorspace.h \
+    ndarray_wrapper.h
 
 FORMS += \
     ui/firelight_main.ui

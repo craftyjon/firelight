@@ -19,27 +19,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <boost/python.hpp>
-#include <boost/numpy.hpp>
-
 #include <QDebug>
 #include <QDir>
 #include <QString>
 
-#include "thirdparty/boost_python_qstring.h"
-#include "thirdparty/boost_python_stdout.h"
-
-#include "firelight_python_module.h"
-#include "preset.h"
-
 #include "preset_manager.h"
+#include "python/firelight_python_module.h"
 
-namespace bp = boost::python;
-namespace np = boost::numpy;
-
-namespace stdout_buffer = firelight::thirdparty::stdout_buffer;
-
-namespace firelight { namespace python {
 
 PresetManager::PresetManager()
 {
@@ -51,8 +37,8 @@ PresetManager::PresetManager()
     //stdout_buffer::enablePythonStdout(&python_console)
 
     // Setup helper modules
-    initFirelight();
-    initBoostPythonQString();
+    firelight::python::initFirelight();
+    //initBoostPythonQString();
 
     // Add the preset folder to the Python path
     QString cwd = QDir("./presets").absolutePath();
@@ -62,14 +48,16 @@ PresetManager::PresetManager()
     PyList_Insert(pythonPath, 0, PyString_FromString(cwd.toStdString().c_str()));
 
     try {
-        bp::object hue_fade = bp::import("hue_fade");
+        _classtype = bp::import("radial_gradient");
 
         try {
-            bp::object hue_fade_inst = hue_fade.attr("HueFade")();
-            hue_fade_inst.attr("on_load")();
+            _classinst = _classtype.attr("RadialGradient")();
 
-            np::ndarray ndarr = bp::call_method<np::ndarray>(hue_fade_inst.ptr(), "draw");
-            qDebug() << bp::extract<char const*>(bp::str(ndarr));
+            _classinst.attr("set_output_size")(320, 320);
+
+            _classinst.attr("on_load")();
+
+            _classinst.attr("prepare")();
 
         } catch (bp::error_already_set) {
             qDebug() << "Setup of preset failed.";
@@ -81,5 +69,16 @@ PresetManager::PresetManager()
     }
 }
 
-}}
+
+void PresetManager::tick()
+{
+    try {
+        _classinst.attr("draw")(0.1);
+        np::ndarray n = bp::call_method<np::ndarray>(_classinst.ptr(), "get_buffer");
+        //qDebug() << bp::extract<char const*>(bp::str(n));
+        emit frameReady(n);
+    } catch (bp::error_already_set) {
+        qDebug() << "Tick failed.";
+    }
+}
 

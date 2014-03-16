@@ -23,10 +23,17 @@
 
 FirelightMain::FirelightMain(QWidget *parent) : QMainWindow(parent)
 {
-	setupUi(this);
+    setupUi(this);
+
+    _pmgr = new PresetManager();
+    _tickTimer = new QTimer(this);
+
     connectUi();
 
     _toolsVisible = true;
+
+    _tickTimer->start(33);
+
 }
 
 
@@ -45,6 +52,10 @@ void FirelightMain::connectUi()
     connect(btnGridEnlarge, SIGNAL(clicked()), this->graphicsView->scene(), SLOT(IncreaseGridScale()));
     connect(btnGridReduce, SIGNAL(clicked()), this->graphicsView->scene(), SLOT(DecreaseGridScale()));
     connect(btnCenterView, SIGNAL(clicked()), this->graphicsView, SLOT(centerView()));
+
+    // Preset tick timer
+    connect(_tickTimer, SIGNAL(timeout()), this->_pmgr, SLOT(tick()));
+    connect(_pmgr, SIGNAL(frameReady(np::ndarray)), this->graphicsView->scene(), SLOT(DrawPresetFrame(np::ndarray)));
 }
 
 

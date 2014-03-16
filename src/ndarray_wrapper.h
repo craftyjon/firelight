@@ -18,52 +18,59 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+//
+// Adapted from example code written by Øystein Skotheim
+// http://www.edge.no/wiki/NumPyArrayData
 
-#ifndef _SIMULATOR_SCENE_H
-#define _SIMULATOR_SCENE_H
-
-#define DEFAULT_GRID_SCALE 20
-#define MAX_GRID_SCALE 100
-#define MIN_GRID_SCALE 10
-#define GRID_SCALE_DELTA 10
-
-#include <QGraphicsScene>
-#include <QImage>
-#include <QGraphicsPixmapItem>
+#ifndef NDARRAY_WRAPPER_H
+#define NDARRAY_WRAPPER_H
 
 #include <boost/python.hpp>
 #include <boost/numpy.hpp>
 
-#include "ndarray_wrapper.h"
-
 namespace bp = boost::python;
 namespace np = boost::numpy;
 
-class SimulatorScene : public QGraphicsScene
+template<typename T> class NDArrayWrapper
 {
-    Q_OBJECT
-
 public:
-    SimulatorScene();
+    NDArrayWrapper<T>(const np::ndarray &arr)
+    {
+        _data = arr.get_data();
+        _strides = arr.get_strides();
+    }
 
-public slots:
-    void ShowGrid(bool show);
-    void IncreaseGridScale(void);
-    void DecreaseGridScale(void);
-    void DrawPresetFrame(np::ndarray frame);
+    T* data()
+    {
+        return reinterpret_cast<T*>(_data);
+    }
 
-protected:
-    void drawBackground(QPainter *painter, const QRectF &rect);
+    const Py_intptr_t* strides()
+    {
+        return _strides;
+    }
+
+    // 1D array access
+    inline T& operator()(int i)
+    {
+        return *reinterpret_cast<T*>(_data + i * _strides[0]);
+    }
+
+    // 2D array access
+    inline T& operator()(int i, int j)
+    {
+        return *reinterpret_cast<T*>(_data + i * _strides[0] + j * _strides[1]);
+    }
+
+    // 3D array access
+    inline T& operator()(int i, int j, int k)
+    {
+        return *reinterpret_cast<T*>(_data + i * _strides[0] + j * _strides[1] + k * _strides[2]);
+    }
 
 private:
-    void BlitHLS(NDArrayWrapper<float> frame);
-
-    QImage _img;
-    QGraphicsPixmapItem *_pixmap;
-
-    bool _showGrid;
-    int _gridScale;
-
+    char* _data;
+    const Py_intptr_t* _strides;
 };
 
-#endif
+#endif // NDARRAY_WRAPPER_H

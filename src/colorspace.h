@@ -19,17 +19,62 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef _PRESET_MANAGER_H
-#define _PRESET_MANAGER_H
+#ifndef COLORSPACE_H
+#define COLORSPACE_H
 
-namespace firelight { namespace python {
+void HLSToRGB(float h, float l, float s, float *r, float *g, float *b);
+void HueToRGB(float p, float q, float t, float *out);
 
-class PresetManager
+
+
+void HLSToRGB(float h, float l, float s, float *r, float *g, float *b)
 {
-public:
-    PresetManager();
-};
+    if (s == 0.0)
+    {
+        *r = l;
+        *g = l;
+        *b = l;
+    }
+    else
+    {
+        float q = (l < 0.5) ? (l * (1.0 + s)) : (l + s - (l * s));
+        float p = 2.0 * l - q;
+        HueToRGB(p, q, (h + 1.0 / 3.0), r);
+        HueToRGB(p, q, h, g);
+        HueToRGB(p, q, (h - 1.0 / 3.0), b);
+    }
+}
 
-}}
 
-#endif
+void HueToRGB(float p, float q, float t, float *out)
+{
+    float th;
+
+    if (t < 0.0)
+        th = t + 1.0;
+
+    if (t > 1.0)
+        th = t - 1.0;
+
+    if (t < (1. / 6.))
+    {
+        *out = p + (q - p) * 6.0 * t;
+        return;
+    }
+
+    if (t < 0.5)
+    {
+        *out = q;
+        return;
+    }
+
+    if (t < (2. / 3.))
+    {
+        *out = p + (q - p) * ((2. / 3.) - t) * 6.;
+        return;
+    }
+
+    *out = p;
+}
+
+#endif // COLORSPACE_H

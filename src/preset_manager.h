@@ -19,46 +19,38 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef _PRESET_H
-#define _PRESET_H
+#ifndef _PRESET_MANAGER_H
+#define _PRESET_MANAGER_H
 
-namespace firelight { namespace python {
+#include <QObject>
 
-class Preset
+#include <boost/python.hpp>
+#include <boost/numpy.hpp>
+
+namespace bp = boost::python;
+namespace np = boost::numpy;
+
+//#include "thirdparty/boost_python_qstring.h"
+//#include "thirdparty/boost_python_stdout.h"
+
+
+class PresetManager : public QObject
 {
+    Q_OBJECT
+
 public:
-    Preset() {}
+    PresetManager();
 
-    // Called once each time the preset is loaded.  Use for one-time initialization
-    virtual void on_load(void) {};
+public slots:
+    void tick(void);
 
-    // Called once when a preset instance is about to go active.  Use for resetting random variables, etc
-    virtual void prepare(void) {};
+signals:
+    void frameReady(np::ndarray);
 
-    // Called each tick to render the preset
-    virtual void draw(void) {};
-
-    // Set up parameters
-    virtual void parameters(void) {};
-
-    // Set up the size of the render target
-    void setOutputSize(unsigned int width, unsigned int height);
-
-    // These should all really be protected but can't figure out how to make that work yet
-public:
-    unsigned int outputWidth;
-    unsigned int outputHeight;
-
+private:
+    bp::object _classtype;
+    bp::object _classinst;
 };
 
-
-void Preset::setOutputSize(unsigned int width, unsigned int height)
-{
-    outputWidth = width;
-    outputHeight = height;
-}
-
-
-}}
 
 #endif

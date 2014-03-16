@@ -23,9 +23,11 @@
 #include <QColor>
 #include <QPainter>
 #include <QDebug>
+#include <algorithm>
 
 #include "simulator_scene.h"
 #include "fixture_item.h"
+#include "colorspace.h"
 
 SimulatorScene::SimulatorScene() : QGraphicsScene()
 {
@@ -34,6 +36,11 @@ SimulatorScene::SimulatorScene() : QGraphicsScene()
     _gridScale = DEFAULT_GRID_SCALE;
 
     setSceneRect(-500, -500, 1000, 1000);
+
+    _img = QImage(320, 320, QImage::Format_RGB888);
+    _pixmap = addPixmap(QPixmap::fromImage(_img));
+    _pixmap->setPos(-320, -320);
+    _pixmap->setScale(2.0);
 
    // FixtureItem *fix = new FixtureItem;
   //  addItem(fix);
@@ -102,5 +109,38 @@ void SimulatorScene::IncreaseGridScale()
 void SimulatorScene::DecreaseGridScale()
 {
     if (_gridScale > MIN_GRID_SCALE) _gridScale -= GRID_SCALE_DELTA;
+    update();
+}
+
+
+void SimulatorScene::DrawPresetFrame(np::ndarray frame)
+{
+    frame = frame.reshape(bp::make_tuple(320, 320, 3));
+    BlitHLS(NDArrayWrapper<float>(frame));
+
+}
+
+
+void SimulatorScene::BlitHLS(NDArrayWrapper<float> frame)
+{
+    for (int i = 0; i < 320; i++)
+    {
+        for (int j = 0; j < 320; j++)
+        {
+            float fr = 0.0, fg = 0.0, fb = 0.0;
+
+            HLSToRGB(frame(i, j, 0), frame(i, j, 1), frame(i, j, 2), &fr, &fg, &fb);
+
+            // TODO: do this right
+            int r, g, b;
+            r = std::max(0, std::min(255, (int)(fr * 255.0)));
+            g = std::max(0, std::min(255, (int)(fg * 255.0)));
+            b = std::max(0, std::min(255, (int)(fb * 255.0)));
+
+            _img.setPixel(i, j, QColor(r, g, b).rgb());
+        }
+    }
+
+    _pixmap->setPixmap(QPixmap::fromImage(_img));
     update();
 }

@@ -26,6 +26,7 @@
 
 #include "preset.h"
 #include "scene.h"
+#include "parameters.h"
 
 namespace bp = boost::python;
 
@@ -33,8 +34,14 @@ namespace firelight { namespace python {
 
 BOOST_PYTHON_MODULE(Firelight)
 {
-    bp::class_<Preset, boost::noncopyable>("Preset", bp::init<>());
+    bp::class_<Preset, boost::noncopyable>("Preset", bp::init<>())
+            .def("set_output_size", &Preset::setOutputSize)
+            .def_readonly("outputHeight", &Preset::outputHeight)
+            .def_readonly("outputWidth", &Preset::outputWidth);
     bp::class_<Scene>("Scene", bp::no_init);
+
+ //   bp::scope Parameters = bp::class_<ParametersWrapper>("Parameters");
+ //   bp::class_<Parameters::FloatParameter>("FloatParameter", bp::no_init);
 }
 
 }}

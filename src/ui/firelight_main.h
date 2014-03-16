@@ -25,18 +25,20 @@
 #include <QtCore>
 #include <QtGui>
 #include <QMainWindow>
+#include <QTimer>
 
+#include "preset_manager.h"
 #include "ui_firelight_main.h"
 
 class FirelightMain : public QMainWindow, private Ui_FirelightMain
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	FirelightMain(QWidget *parent = 0);
+    FirelightMain(QWidget *parent = 0);
 
 public slots:
-	void quit();
+    void quit();
 
     void btnShowHideControlsClicked();
 
@@ -44,6 +46,9 @@ private:
     void connectUi(void);
 
     bool _toolsVisible;
+
+    PresetManager *_pmgr;
+    QTimer *_tickTimer;
 
 };
 

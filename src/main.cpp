@@ -23,17 +23,13 @@
 #include <QString>
 #include <QApplication>
 
-#include "python/preset_manager.h"
+#include "preset_manager.h"
 #include "ui/firelight_main.h"
-
-using namespace firelight::python;
 
 int main(int argc, char **argv) {
 
     QApplication app(argc, argv);
     FirelightMain *mainWindow = new FirelightMain;
-
-    PresetManager pmgr;
 
     mainWindow->show();
     return app.exec();

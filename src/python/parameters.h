@@ -19,34 +19,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include "preset.h"
+#ifndef _PARAMETERS_H
+#define _PARAMETERS_H
 
 namespace firelight { namespace python {
 
+class ParametersWrapper
+{
+};
 
-Preset::Preset()
+namespace Parameters
 {
 
-}
-
-void Preset::on_load(void)
+class FloatParameter
 {
+};
 
-}
+}}}
 
-void Preset::prepare(void)
-{
-
-}
-
-void Preset::draw(void)
-{
-
-}
-
-void Preset::loadPreset(void)
-{
-
-}
-
-}}
+#endif
