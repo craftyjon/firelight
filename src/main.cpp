@@ -19,71 +19,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <boost/python.hpp>
-#include <boost/filesystem.hpp>
-#include <boost/numpy.hpp>
-
 #include <QDebug>
 #include <QString>
 #include <QApplication>
 
-#include "thirdparty/boost_python_qstring.h"
-#include "thirdparty/boost_python_stdout.h"
-
-#include "python/firelight_python_module.h"
+#include "python/preset_manager.h"
 #include "ui/firelight_main.h"
-
-
-namespace bp = boost::python;
-namespace np = boost::numpy;
-
-namespace stdout_buffer = firelight::thirdparty::stdout_buffer;
 
 using namespace firelight::python;
 
-
 int main(int argc, char **argv) {
-
-    stdout_buffer::initPythonStdout();
-    Py_Initialize();
-    np::initialize();
-
-    std::string python_console;
-    stdout_buffer::enablePythonStdout(&python_console);
-
-    // Add our CWD to the Python path
-    boost::filesystem::path cwd = boost::filesystem::complete("./src/presets").normalize();
-    qDebug("Our path is %s", cwd.string().c_str());
-    PyObject* pythonPath = PySys_GetObject("path");
-    PyList_Insert(pythonPath, 0, PyString_FromString(cwd.string().c_str()));
-
-    // Setup helper modules
-    initFirelight();
-    initBoostPythonQString();
-
-    try {
-        bp::object hue_fade = bp::import("hue_fade");
-
-        try {
-            bp::object hue_fade_inst = hue_fade.attr("HueFade")();
-            hue_fade_inst.attr("on_load")();
-
-            np::ndarray ndarr = bp::call_method<np::ndarray>(hue_fade_inst.ptr(), "draw");
-            qDebug() << bp::extract<char const*>(bp::str(ndarr));
-
-        } catch (bp::error_already_set) {
-            qDebug() << "Setup of preset failed.";
-            PyErr_Print();
-        }
-    } catch (bp::error_already_set) {
-        qDebug() << "Failed to import preset.";
-        PyErr_Print();
-    }
-
-    qDebug() << QString::fromStdString(python_console);
 
     QApplication app(argc, argv);
     FirelightMain *mainWindow = new FirelightMain;
+
+    PresetManager pmgr;
 
     mainWindow->show();
     return app.exec();
