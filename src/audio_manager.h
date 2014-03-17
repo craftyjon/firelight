@@ -26,6 +26,10 @@
 
 #include <portaudio.h>
 
+#include "thirdparty/ffft/FFTRealFixLen.h"
+
+using namespace ffft;
+
 #define SAMPLE_RATE         (44100)
 #define PA_SAMPLE_TYPE      paFloat32
 #define FRAMES_PER_BUFFER   (64)
@@ -38,6 +42,12 @@ class AudioManager : public QObject
 public:
     AudioManager();
     ~AudioManager();
+
+private slots:
+    void ProcessAudio();
+
+signals:
+    void BufferReady(void);
 
 private:
     void InitAudio(void);
@@ -59,6 +69,12 @@ private:
 
     PaStream *_stream;
     bool _initialized;
+    FFTRealFixLen<6> *_fft;
+
+private:
+    float *_audioBuffer;
+    float *_ffty;
+    bool _bufferReady;
 };
 
 #endif

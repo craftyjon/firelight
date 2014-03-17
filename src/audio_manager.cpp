@@ -25,6 +25,16 @@ AudioManager::AudioManager()
 {
     _initialized = false;
     _stream = NULL;
+
+    _fft = new FFTRealFixLen<6>();
+    _audioBuffer = new float[FRAMES_PER_BUFFER];
+    _ffty = new float[FRAMES_PER_BUFFER];
+
+    memset(_audioBuffer, 0.0, sizeof(float) * FRAMES_PER_BUFFER);
+    memset(_ffty, 0.0, sizeof(float) * FRAMES_PER_BUFFER);
+
+    connect(this, SIGNAL(BufferReady()), this, SLOT(ProcessAudio()));
+
     qDebug() << "Opening input stream...";
     InitAudio();
 }
@@ -32,6 +42,21 @@ AudioManager::AudioManager()
 
 AudioManager::~AudioManager()
 {
+    if (_fft)
+    {
+        delete _fft;
+    }
+
+    if (_audioBuffer)
+    {
+        delete[] _audioBuffer;
+    }
+
+    if (_ffty)
+    {
+        delete[] _ffty;
+    }
+
     DeInitAudio();
 }
 
@@ -57,7 +82,7 @@ void AudioManager::InitAudio()
         return;
     }
 
-    pars.channelCount = 1;
+    pars.channelCount = 2;
     pars.sampleFormat = PA_SAMPLE_TYPE;
     pars.suggestedLatency = Pa_GetDeviceInfo(pars.device)->defaultLowInputLatency;
     pars.hostApiSpecificStreamInfo = NULL;
@@ -69,7 +94,7 @@ void AudioManager::InitAudio()
                         FRAMES_PER_BUFFER,
                         0,
                         &AudioManager::PortAudioCallbackWrapper,
-                        NULL );
+                        (void *)this );
 
 
     if (err != paNoError)
@@ -115,10 +140,36 @@ int AudioManager::PortAudioCallback(const void *inputBuffer, void *outputBuffer,
     Q_UNUSED(timeInfo)
     Q_UNUSED(statusFlags)
     Q_UNUSED(outputBuffer)
+    Q_UNUSED(framesPerBuffer)
+
+    if (inputBuffer == NULL)
+    {
+        return paContinue;
+    }
 
     const float *in = (const float*)inputBuffer;
 
+    for (int i = 0; i < FRAMES_PER_BUFFER; i++)
+    {
+        _audioBuffer[i] = *in++;
+    }
 
+    emit BufferReady();
 
     return paContinue;
+}
+
+
+void AudioManager::ProcessAudio()
+{
+    float sum = 0.0;
+    for (int i = 0; i < FRAMES_PER_BUFFER; i++)
+    {
+        sum += fabs(_audioBuffer[i]);
+    }
+
+    if (sum > 0.0)
+    {
+        _fft->do_fft(_ffty, _audioBuffer);
+    }
 }
