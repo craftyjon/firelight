@@ -27,7 +27,9 @@
 #include <QMainWindow>
 #include <QTimer>
 
+// TODO: move this out of here
 #include "preset_manager.h"
+
 #include "ui_firelight_main.h"
 
 class FirelightMain : public QMainWindow, private Ui_FirelightMain

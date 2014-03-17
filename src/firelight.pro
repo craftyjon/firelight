@@ -8,7 +8,8 @@ SOURCES += \
     ui/simulator_scene.cpp \
     ui/simulator_view.cpp \
     ui/fixture_item.cpp \
-    preset_manager.cpp
+    preset_manager.cpp \
+    audio_manager.cpp
 
 HEADERS += \
     version.h \
@@ -24,13 +25,14 @@ HEADERS += \
     preset_manager.h \
     python/parameters.h \
     colorspace.h \
-    ndarray_wrapper.h
+    ndarray_wrapper.h \
+    audio_manager.h
 
 FORMS += \
     ui/firelight_main.ui
 
 INCLUDEPATH +=  ui /usr/include/python2.7
-LIBS += -lboost_system -lboost_filesystem -lboost_python -lboost_numpy -lpython2.7
+LIBS += -lboost_system -lboost_filesystem -lboost_python -lboost_numpy -lpython2.7 -lportaudio
 
 RESOURCES += \
     res/firelight.qrc

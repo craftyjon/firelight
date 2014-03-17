@@ -19,21 +19,46 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <QDebug>
-#include <QString>
-#include <QApplication>
+#ifndef _AUDIO_MANAGER_H
+#define _AUDIO_MANAGER_H
 
-#include "audio_manager.h"
-#include "preset_manager.h"
-#include "ui/firelight_main.h"
+#include <QtCore>
 
-int main(int argc, char **argv) {
+#include <portaudio.h>
 
-    QApplication app(argc, argv);
-    FirelightMain *mainWindow = new FirelightMain;
+#define SAMPLE_RATE         (44100)
+#define PA_SAMPLE_TYPE      paFloat32
+#define FRAMES_PER_BUFFER   (64)
 
-    AudioManager *amgr = new AudioManager;
 
-    mainWindow->show();
-    return app.exec();
-}
+class AudioManager : public QObject
+{
+    Q_OBJECT
+
+public:
+    AudioManager();
+    ~AudioManager();
+
+private:
+    void InitAudio(void);
+    void DeInitAudio(void);
+
+    int PortAudioCallback(const void *input, void *output,
+                          unsigned long frameCount,
+                          const PaStreamCallbackTimeInfo* timeInfo,
+                          PaStreamCallbackFlags statusFlags);
+
+    static int PortAudioCallbackWrapper( const void *input, void *output,
+                                  unsigned long frameCount,
+                                  const PaStreamCallbackTimeInfo* timeInfo,
+                                  PaStreamCallbackFlags statusFlags,
+                                  void *userData )
+    {
+        return ((AudioManager*)userData)->PortAudioCallback(input, output, frameCount, timeInfo, statusFlags);
+    }
+
+    PaStream *_stream;
+    bool _initialized;
+};
+
+#endif
