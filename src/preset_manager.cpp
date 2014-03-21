@@ -59,6 +59,10 @@ PresetManager::PresetManager()
 
             _classinst.attr("prepare")();
 
+            bp::str json = bp::call_method<bp::str>(_classinst.ptr(), "get_parameters");
+
+            qDebug() << "params:" << bp::extract<const char *>(json);
+
         } catch (bp::error_already_set) {
             qDebug() << "Setup of preset failed.";
             PyErr_Print();

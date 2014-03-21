@@ -21,6 +21,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 """
 
+import json
+
 class Parameter:
 
     def __init__(self, key, default=0.0, dtype=float):
@@ -37,3 +39,20 @@ class Parameter:
                 self.value = args[0]
             else:
                 raise ValueError("%s is of type %s; cannot set to %s" % (self.key, str(self.dtype), str(args[0]) ) )
+
+    def __repr__(self):
+        """
+        Serialize to JSON for host app
+        """
+        return json.dumps({'key': self.key,
+                           'dtype': str(self.dtype),
+                           'default': self.default,
+                           'value': self.value})
+
+    def fromJSON(self, json):
+        """
+        Deserialize
+        """
+        if json['key'] != self.key:
+            raise ValueError("Key mismatch in fromJSON")
+        self.value = json['value']

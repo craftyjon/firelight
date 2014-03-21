@@ -74,13 +74,25 @@ class Preset:
         """
         Returns the parameter table to the C++ host
         """
-        pass
+        return "".join([repr(p) for p in self.editable_parameters()])
+
+    def get_parameter_by_name(self, pname):
+        plist = [p for p in self.editable_parameters() if p.key == pname]
+        if len(plist) > 0:
+            return plist[0]
+        else:
+            raise ValueError("No parameter by the name %s" % pname)
 
     def set_parameters(self, pars):
         """
-        Reloads the parameter table using a JSON dictionary
+        Reloads the parameter table using a JSON dictionary.
         """
-        pass
+        for pdata in json.loads(pars):
+            try:
+                par = self.get_parameter_by_name(pdata['key'])
+                par.fromJSON(pdata)
+            except ValueError:
+                continue
 
     def set_output_size(self, width, height):
         """
