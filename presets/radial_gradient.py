@@ -24,7 +24,7 @@ class RadialGradient(Preset):
     luminance_speed = Parameter('luminance-speed', 0.25)
     luminance_scale = Parameter('luminance-scale', 1.5)
 
-    luminance_steps = Parameter('luminance-steps', 256, int)
+    luminance_steps = Parameter('luminance-steps', 256)
 
     def editable_parameters(self):
         return [

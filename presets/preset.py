@@ -74,7 +74,8 @@ class Preset:
         """
         Returns the parameter table to the C++ host
         """
-        return "".join([repr(p) for p in self.editable_parameters()])
+        ps = ",".join([repr(p) for p in self.editable_parameters()])
+        return "[%s]" % ps
 
     def get_parameter_by_name(self, pname):
         plist = [p for p in self.editable_parameters() if p.key == pname]

@@ -23,11 +23,25 @@ THE SOFTWARE.
 
 import json
 
-class Parameter:
+DTYPE_DOUBLE = 0
+DTYPE_BOOL = 1
+DTYPE_INT = 2
+DTYPE_STR = 3
 
-    def __init__(self, key, default=0.0, dtype=float):
+
+class Parameter:
+    
+    def __init__(self, key, default=0.0):
         self.key = key
-        self.dtype = dtype
+        if type(default) == float:
+            self.dtype = DTYPE_DOUBLE
+        elif type(default) == str:
+            self.dtype = DTYPE_STR
+        elif type(default) == int:
+            self.dtype = DTYPE_INT
+        elif type(default) == bool:
+            self.dtype = DTYPE_BOOL
+        
         self.default = default
         self.value = default
 
@@ -45,7 +59,7 @@ class Parameter:
         Serialize to JSON for host app
         """
         return json.dumps({'key': self.key,
-                           'dtype': str(self.dtype),
+                           'dtype': self.dtype,
                            'default': self.default,
                            'value': self.value})
 

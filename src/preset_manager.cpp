@@ -22,6 +22,10 @@
 #include <QDebug>
 #include <QDir>
 #include <QString>
+#include <QByteArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 
 #include "preset_manager.h"
 #include "python/firelight_python_module.h"
@@ -61,7 +65,26 @@ PresetManager::PresetManager()
 
             bp::str json = bp::call_method<bp::str>(_classinst.ptr(), "get_parameters");
 
-            qDebug() << "params:" << bp::extract<const char *>(json);
+            QString js = QString::fromUtf8(bp::extract<const char *>(json));
+            QJsonDocument jd = QJsonDocument::fromJson(js.toUtf8());
+
+            QJsonArray pars = jd.array();
+
+            for (int i = 0; i < pars.size(); i++)
+            {
+                QJsonObject par = pars[i].toObject();
+                if (par["key"].toString() == "speed")
+                {
+                    par["value"] = 0.14;
+                    pars.replace(i, par);
+                }
+            }
+
+            jd.setArray(pars);
+
+            qDebug() << "params:" << jd.toJson();
+
+            _classinst.attr("set_parameters")(((QString)jd.toJson()).toStdString().c_str());
 
         } catch (bp::error_already_set) {
             qDebug() << "Setup of preset failed.";
