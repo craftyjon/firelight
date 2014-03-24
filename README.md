@@ -7,10 +7,12 @@ Details coming soon.
 Developing on Linux
 -------------------
 
-Instructions coming soon...
+The preferred development environment for Firelight is Linux (any flavor).  Instructions for getting started will be written up soon.  While these instructions may also apply to Mac OS X, the developers do not have any Apple hardware and have made no effort to test this software on Mac OS X.  Users who have successfully built and ran the software on Mac OS X are encouraged to submit pull requests to document the setup of that platform.
 
 Developing on Windows
 ---------------------
+
+Firelight is cross-platform and can be build and run on Windows, although less testing has been done for this platform.
 
 1. Download Requirements
   * Qt 5.2 or newer (http://qt-project.org/downloads)
@@ -28,7 +30,7 @@ Developing on Windows
   * Extract the zip file to a folder (e.g. `boost_1_55_0`)
   * Open a MingW-enabled command prompt (found under Qt in the start menu) to that folder
   * Run `bootstrap.bat mingw`
-  * Run `b2.exe toolset=gcc`
+  * Run `b2.exe toolset=gcc python` (omit the `python` if you want to build the whole boost library)
   * Grab some more coffee
   * When complete, make sure the `BOOST_ROOT` environment variable is set to point to the `boost_1_55_0` folder.
 4. Build Boost.Numpy
@@ -48,6 +50,8 @@ Developing on Windows
   * Open Qt Creator
   * File -> Open, select `src/firelight.pro` from the working copy of this repo
   * Qt Creator should automatically list your MingW compiler settings.  Click `Configure` to confirm.
+  * Click `Projects` tab on the left, then click `qmake` under build steps to show the options for qmake.
+  * Open `firelight.pro` in the text editor and edit the paths under the `win32` section to make sure your include and library paths are correct.
 7. Build and Run
   * Click the build button (hammer) in the lower left
   * If you have problems, make sure that your paths are set up correctly to Boost, Python, Boost.Numpy, and portaudio.
