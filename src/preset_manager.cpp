@@ -31,6 +31,8 @@
 #include "python/firelight_python_module.h"
 
 
+// This is currently all a hack.
+
 PresetManager::PresetManager()
 {
     Py_Initialize();
@@ -76,6 +78,12 @@ PresetManager::PresetManager()
                 if (par["key"].toString() == "speed")
                 {
                     par["value"] = 0.14;
+                    pars.replace(i, par);
+                }
+
+                if (par["key"].toString() == "luminance-speed")
+                {
+                    par["value"] = 0.25;
                     pars.replace(i, par);
                 }
             }

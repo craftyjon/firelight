@@ -32,7 +32,7 @@ FirelightMain::FirelightMain(QWidget *parent) : QMainWindow(parent)
 
     _toolsVisible = true;
 
-    _tickTimer->start(33);
+    _tickTimer->start(40);
 
 }
 

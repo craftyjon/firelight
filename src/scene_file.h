@@ -19,26 +19,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <QDebug>
-#include <QString>
-#include <QApplication>
-#include <QThread>
+#ifndef _SCENE_FILE_H
+#define _SCENE_FILE_H
 
-#include "audio_manager.h"
-#include "preset_manager.h"
-#include "scene_file.h"
-#include "ui/firelight_main.h"
+#include <QtCore>
 
-int main(int argc, char **argv) {
+class SceneFile : public QObject
+{
+    Q_OBJECT
 
-    QApplication app(argc, argv);
-    FirelightMain *mainWindow = new FirelightMain;
+public:
+    SceneFile();
+    SceneFile(const QString &fileName);
 
-    // Hack this in here for now
-    //AudioManager *amgr = new AudioManager;
+    bool load(const QString &fileName);
 
-    SceneFile scene("./data/projects/demo/scene.json");
+private:
+    bool readData(void);
 
-    mainWindow->show();
-    return app.exec();
-}
+    bool _loaded;
+    QString _fileName;
+    QJsonDocument *_doc;
+};
+
+#endif

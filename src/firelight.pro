@@ -9,7 +9,8 @@ SOURCES += \
     ui/simulator_view.cpp \
     ui/fixture_item.cpp \
     preset_manager.cpp \
-    audio_manager.cpp
+    audio_manager.cpp \
+    scene_file.cpp
 
 HEADERS += \
     version.h \
@@ -26,7 +27,8 @@ HEADERS += \
     python/parameters.h \
     colorspace.h \
     ndarray_wrapper.h \
-    audio_manager.h
+    audio_manager.h \
+    scene_file.h
 
 FORMS += \
     ui/firelight_main.ui

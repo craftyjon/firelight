@@ -19,26 +19,62 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <QDebug>
-#include <QString>
-#include <QApplication>
-#include <QThread>
-
-#include "audio_manager.h"
-#include "preset_manager.h"
 #include "scene_file.h"
-#include "ui/firelight_main.h"
 
-int main(int argc, char **argv) {
+SceneFile::SceneFile()
+{
+    _doc = NULL;
+    _loaded = false;
+}
 
-    QApplication app(argc, argv);
-    FirelightMain *mainWindow = new FirelightMain;
 
-    // Hack this in here for now
-    //AudioManager *amgr = new AudioManager;
+SceneFile::SceneFile(const QString &fileName)
+{
+    _doc = NULL;
+    _loaded = false;
+    load(fileName);
 
-    SceneFile scene("./data/projects/demo/scene.json");
+    if (_loaded)
+    {
+        readData();
+    }
+}
 
-    mainWindow->show();
-    return app.exec();
+
+bool SceneFile::load(const QString &fileName)
+{
+
+    if (_loaded)
+    {
+        qDebug() << "SceneFile load() called but file is already loaded";
+        return true;
+    }
+
+    QFile sourceFile(fileName);
+
+    if (!sourceFile.open(QIODevice::ReadOnly))
+    {
+        qWarning() << "Could not open scene file" << fileName;
+        return false;
+    }
+
+    qDebug() << "Loading scene from" << fileName;
+
+    QByteArray sourceData = sourceFile.readAll();
+
+    _doc = new QJsonDocument(QJsonDocument::fromJson(sourceData));
+
+    //qDebug() << _doc->toJson();
+
+    _loaded = true;
+    return true;
+}
+
+
+bool SceneFile::readData()
+{
+    QJsonArray fixtures = _doc->object()["fixtures"].toArray();
+
+    //() << fixtures;
+    return true;
 }

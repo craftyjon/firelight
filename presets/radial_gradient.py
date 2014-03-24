@@ -19,8 +19,10 @@ class RadialGradient(Preset):
     wave2_amplitude = Parameter('wave2-amplitude', 0.3)
     wave2_period = Parameter('wave2-period', 3.0)
     wave2_speed = Parameter('wave2-speed', -1.0)
-    blackout = Parameter('blackout', 0.05)
-    whiteout = Parameter('whiteout', 0.1)
+    #blackout = Parameter('blackout', 0.05)
+    blackout = Parameter('blackout', 0.6)
+    #whiteout = Parameter('whiteout', 0.1)
+    whiteout = Parameter('whiteout', 0)
     luminance_speed = Parameter('luminance-speed', 0.25)
     luminance_scale = Parameter('luminance-scale', 1.5)
 
