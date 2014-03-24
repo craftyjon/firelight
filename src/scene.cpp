@@ -25,6 +25,7 @@ Scene::Scene()
 {
     _doc = NULL;
     _loaded = false;
+    _fixtures = NULL;
 }
 
 
@@ -32,6 +33,7 @@ Scene::Scene(const QString &fileName)
 {
     _doc = NULL;
     _loaded = false;
+    _fixtures = NULL;
     load(fileName);
 
     if (_loaded)
@@ -73,8 +75,22 @@ bool Scene::load(const QString &fileName)
 
 bool Scene::readData()
 {
-    QJsonArray fixtures = _doc->object()["fixtures"].toArray();
+    QJsonArray fixture_list = _doc->object()["fixtures"].toArray();
 
-    //() << fixtures;
+    if (_fixtures)
+    {
+        delete _fixtures;
+    }
+
+    _fixtures = new QVector<Fixture>(fixture_list.size());
+
+    for (int i = 0; i < fixture_list.size(); i++)
+    {
+        QJsonObject jo = fixture_list[i].toObject();
+        Fixture f(jo["strand"].toInt(), jo["address"].toInt(), jo["pixels"].toInt());
+        qDebug() << f;
+        _fixtures->append(f);
+    }
+
     return true;
 }

@@ -24,6 +24,8 @@
 
 #include <QtCore>
 
+#include "fixture.h"
+
 class Scene : public QObject
 {
     Q_OBJECT
@@ -33,6 +35,7 @@ public:
     Scene(const QString &fileName);
 
     bool load(const QString &fileName);
+    bool save(void);
 
 private:
     bool readData(void);
@@ -40,6 +43,8 @@ private:
     bool _loaded;
     QString _fileName;
     QJsonDocument *_doc;
+
+    QVector<Fixture> *_fixtures;
 };
 
 #endif

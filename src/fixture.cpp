@@ -32,7 +32,8 @@ Fixture::Fixture(unsigned char strand, unsigned char address, unsigned short num
     _strand = strand;
     _address = address;
     _numPixels = numPixels;
-    _pixels = new QVector<QColor>(numPixels);
+    _pixels = NULL;
+    //_pixels = new QVector<QColor>(numPixels);
 }
 
 

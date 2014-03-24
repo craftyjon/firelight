@@ -22,6 +22,7 @@
 #ifndef _FIXTURE_H
 #define _FIXTURE_H
 
+#include <QDebug>
 #include <QVector>
 #include <QColor>
 #include <QPoint>
@@ -37,8 +38,12 @@ public:
     void setEnd(QPoint end);
     void setColors(const QVector<QColor> &colors);
     void getColors(QVector<QColor> *colors);
-    double getLength(void);
-    double getHeading(void);
+    double getLength(void) const;
+    double getHeading(void) const;
+
+    unsigned char getStrand(void) const { return _strand; }
+    unsigned char getAddress(void) const { return _address; }
+    unsigned char getNumPixels(void) const { return _numPixels; }
 
 private:
     QPoint _start;
@@ -49,5 +54,12 @@ private:
 
     QVector<QColor> *_pixels;
 };
+
+
+inline QDebug operator<<(QDebug dbg, const Fixture &f)
+{
+    dbg.nospace() << "F[" << f.getStrand() << "," << f.getAddress() << "]";
+    return dbg.space();
+}
 
 #endif
