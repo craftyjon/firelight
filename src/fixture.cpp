@@ -19,62 +19,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include "scene_file.h"
+#include "fixture.h"
 
-SceneFile::SceneFile()
+Fixture::Fixture()
 {
-    _doc = NULL;
-    _loaded = false;
+    _pixels = NULL;
 }
 
 
-SceneFile::SceneFile(const QString &fileName)
+Fixture::Fixture(unsigned char strand, unsigned char address, unsigned short numPixels)
 {
-    _doc = NULL;
-    _loaded = false;
-    load(fileName);
-
-    if (_loaded)
-    {
-        readData();
-    }
+    _strand = strand;
+    _address = address;
+    _numPixels = numPixels;
+    _pixels = new QVector<QColor>(numPixels);
 }
 
 
-bool SceneFile::load(const QString &fileName)
+Fixture::~Fixture()
 {
-
-    if (_loaded)
+    if (_pixels)
     {
-        qDebug() << "SceneFile load() called but file is already loaded";
-        return true;
+        delete _pixels;
     }
-
-    QFile sourceFile(fileName);
-
-    if (!sourceFile.open(QIODevice::ReadOnly))
-    {
-        qWarning() << "Could not open scene file" << fileName;
-        return false;
-    }
-
-    qDebug() << "Loading scene from" << fileName;
-
-    QByteArray sourceData = sourceFile.readAll();
-
-    _doc = new QJsonDocument(QJsonDocument::fromJson(sourceData));
-
-    //qDebug() << _doc->toJson();
-
-    _loaded = true;
-    return true;
-}
-
-
-bool SceneFile::readData()
-{
-    QJsonArray fixtures = _doc->object()["fixtures"].toArray();
-
-    //() << fixtures;
-    return true;
 }

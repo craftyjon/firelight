@@ -19,27 +19,62 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef _SCENE_FILE_H
-#define _SCENE_FILE_H
+#include "scene.h"
 
-#include <QtCore>
-
-class SceneFile : public QObject
+Scene::Scene()
 {
-    Q_OBJECT
+    _doc = NULL;
+    _loaded = false;
+}
 
-public:
-    SceneFile();
-    SceneFile(const QString &fileName);
 
-    bool load(const QString &fileName);
+Scene::Scene(const QString &fileName)
+{
+    _doc = NULL;
+    _loaded = false;
+    load(fileName);
 
-private:
-    bool readData(void);
+    if (_loaded)
+    {
+        readData();
+    }
+}
 
-    bool _loaded;
-    QString _fileName;
-    QJsonDocument *_doc;
-};
 
-#endif
+bool Scene::load(const QString &fileName)
+{
+
+    if (_loaded)
+    {
+        qDebug() << "Scene load() called but file is already loaded";
+        return true;
+    }
+
+    QFile sourceFile(fileName);
+
+    if (!sourceFile.open(QIODevice::ReadOnly))
+    {
+        qWarning() << "Could not open scene file" << fileName;
+        return false;
+    }
+
+    qDebug() << "Loading scene from" << fileName;
+
+    QByteArray sourceData = sourceFile.readAll();
+
+    _doc = new QJsonDocument(QJsonDocument::fromJson(sourceData));
+
+    //qDebug() << _doc->toJson();
+
+    _loaded = true;
+    return true;
+}
+
+
+bool Scene::readData()
+{
+    QJsonArray fixtures = _doc->object()["fixtures"].toArray();
+
+    //() << fixtures;
+    return true;
+}

@@ -19,26 +19,35 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <QDebug>
-#include <QString>
-#include <QApplication>
-#include <QThread>
+#ifndef _FIXTURE_H
+#define _FIXTURE_H
 
-#include "audio_manager.h"
-#include "preset_manager.h"
-#include "scene.h"
-#include "ui/firelight_main.h"
+#include <QVector>
+#include <QColor>
+#include <QPoint>
 
-int main(int argc, char **argv) {
+class Fixture
+{
+public:
+    Fixture();
+    Fixture(unsigned char strand, unsigned char address, unsigned short numPixels);
+    ~Fixture();
 
-    QApplication app(argc, argv);
-    FirelightMain *mainWindow = new FirelightMain;
+    void setStart(QPoint start);
+    void setEnd(QPoint end);
+    void setColors(const QVector<QColor> &colors);
+    void getColors(QVector<QColor> *colors);
+    double getLength(void);
+    double getHeading(void);
 
-    // Hack this in here for now
-    //AudioManager *amgr = new AudioManager;
+private:
+    QPoint _start;
+    QPoint _end;
+    unsigned char _strand;
+    unsigned char _address;
+    unsigned short _numPixels;
 
-    Scene scene("./data/projects/demo/scene.json");
+    QVector<QColor> *_pixels;
+};
 
-    mainWindow->show();
-    return app.exec();
-}
+#endif

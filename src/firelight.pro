@@ -10,7 +10,8 @@ SOURCES += \
     ui/fixture_item.cpp \
     preset_manager.cpp \
     audio_manager.cpp \
-    scene_file.cpp
+    fixture.cpp \
+    scene.cpp
 
 HEADERS += \
     version.h \
@@ -28,7 +29,8 @@ HEADERS += \
     colorspace.h \
     ndarray_wrapper.h \
     audio_manager.h \
-    scene_file.h
+    fixture.h \
+    scene.h
 
 FORMS += \
     ui/firelight_main.ui
