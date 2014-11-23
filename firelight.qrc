@@ -1,0 +1,42 @@
+<RCC>
+    <qresource prefix="/">
+        <file>src/qml/firelight.qml</file>
+        <file>src/res/ic_add_circle_black_24dp.png</file>
+        <file>src/res/ic_brightness_high_black_24dp.png</file>
+        <file>src/res/ic_brightness_low_black_24dp.png</file>
+        <file>src/res/ic_check_box_black_24dp.png</file>
+        <file>src/res/ic_check_box_outline_blank_black_24dp.png</file>
+        <file>src/res/ic_error_red_24dp.png</file>
+        <file>src/res/ic_fast_forward_black_24dp.png</file>
+        <file>src/res/ic_fast_rewind_black_24dp.png</file>
+        <file>src/res/ic_gps_fixed_black_24dp.png</file>
+        <file>src/res/ic_loop_black_24dp.png</file>
+        <file>src/res/ic_mic_black_24dp.png</file>
+        <file>src/res/ic_mic_off_black_24dp.png</file>
+        <file>src/res/ic_movie_black_24dp.png</file>
+        <file>src/res/ic_my_library_add_black_24dp.png</file>
+        <file>src/res/ic_my_library_books_black_24dp.png</file>
+        <file>src/res/ic_now_wallpaper_black_24dp.png</file>
+        <file>src/res/ic_pause_black_24dp.png</file>
+        <file>src/res/ic_pause_circle_fill_black_24dp.png</file>
+        <file>src/res/ic_pause_circle_fill_grey600_24dp.png</file>
+        <file>src/res/ic_play_arrow_black_24dp.png</file>
+        <file>src/res/ic_play_arrow_grey600_24dp.png</file>
+        <file>src/res/ic_play_circle_fill_black_24dp.png</file>
+        <file>src/res/ic_play_circle_fill_grey600_24dp.png</file>
+        <file>src/res/ic_playlist_add_black_24dp.png</file>
+        <file>src/res/ic_playlist_add_grey600_24dp.png</file>
+        <file>src/res/ic_queue_black_24dp.png</file>
+        <file>src/res/ic_radio_button_off_black_24dp.png</file>
+        <file>src/res/ic_radio_button_on_black_24dp.png</file>
+        <file>src/res/ic_repeat_black_24dp.png</file>
+        <file>src/res/ic_shuffle_black_24dp.png</file>
+        <file>src/res/ic_skip_next_black_24dp.png</file>
+        <file>src/res/ic_skip_next_grey600_24dp.png</file>
+        <file>src/res/ic_skip_previous_black_24dp.png</file>
+        <file>src/res/ic_skip_previous_grey600_24dp.png</file>
+        <file>src/res/ic_stop_black_24dp.png</file>
+        <file>src/res/ic_stop_grey600_24dp.png</file>
+        <file>src/res/ic_warning_amber_24dp.png</file>
+    </qresource>
+</RCC>

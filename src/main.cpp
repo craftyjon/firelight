@@ -19,26 +19,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include <QDebug>
-#include <QString>
-#include <QApplication>
-#include <QThread>
 
-#include "audio_manager.h"
-#include "preset_manager.h"
-#include "scene.h"
-#include "ui/firelight_main.h"
+#include <QtGui/QGuiApplication>
+#include <QQmlApplicationEngine>
+
+//#include "audio_manager.h"
+//#include "preset_manager.h"
+//#include "scene.h"
+
 
 int main(int argc, char **argv) {
-
-    QApplication app(argc, argv);
-    FirelightMain *mainWindow = new FirelightMain;
 
     // Hack this in here for now
     //AudioManager *amgr = new AudioManager;
 
-    Scene scene("./data/projects/demo/scene.json");
+    //Scene scene("./data/projects/demo/scene.json");
 
-    mainWindow->show();
+    QGuiApplication app(argc, argv);
+    QQmlApplicationEngine engine(QUrl("qrc:///src/qml/firelight.qml"));
+
     return app.exec();
 }
