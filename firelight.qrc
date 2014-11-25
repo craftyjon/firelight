@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>src/qml/firelight.qml</file>
         <file>src/res/ic_add_circle_black_24dp.png</file>
         <file>src/res/ic_brightness_high_black_24dp.png</file>
         <file>src/res/ic_brightness_low_black_24dp.png</file>
@@ -38,5 +37,34 @@
         <file>src/res/ic_stop_black_24dp.png</file>
         <file>src/res/ic_stop_grey600_24dp.png</file>
         <file>src/res/ic_warning_amber_24dp.png</file>
+        <file>src/qml/Firelight.qml</file>
+        <file>src/qml/Viewport.qml</file>
+        <file>src/res/ic_alarm_black_24dp.png</file>
+        <file>src/res/ic_aspect_ratio_black_24dp.png</file>
+        <file>src/res/ic_border_all_black_24dp.png</file>
+        <file>src/res/ic_border_all_grey600_24dp.png</file>
+        <file>src/res/ic_favorite_black_24dp.png</file>
+        <file>src/res/ic_favorite_grey600_24dp.png</file>
+        <file>src/res/ic_folder_open_black_24dp.png</file>
+        <file>src/res/ic_label_black_24dp.png</file>
+        <file>src/res/ic_label_outline_black_24dp.png</file>
+        <file>src/res/ic_lock_black_24dp.png</file>
+        <file>src/res/ic_lock_grey600_24dp.png</file>
+        <file>src/res/ic_lock_open_black_24dp.png</file>
+        <file>src/res/ic_lock_outline_black_24dp.png</file>
+        <file>src/res/ic_open_with_black_24dp.png</file>
+        <file>src/res/ic_open_with_grey600_24dp.png</file>
+        <file>src/res/ic_save_black_24dp.png</file>
+        <file>src/res/ic_save_grey600_24dp.png</file>
+        <file>src/res/ic_search_black_24dp.png</file>
+        <file>src/res/ic_settings_black_24dp.png</file>
+        <file>src/res/ic_settings_ethernet_black_24dp.png</file>
+        <file>src/res/ic_settings_ethernet_grey600_24dp.png</file>
+        <file>src/res/ic_view_list_black_24dp.png</file>
+        <file>src/res/ic_view_list_grey600_24dp.png</file>
+        <file>src/res/ic_visibility_black_24dp.png</file>
+        <file>src/res/ic_visibility_off_black_24dp.png</file>
+        <file>src/res/pointer.png</file>
+        <file>src/qml/components/Surface.qml</file>
     </qresource>
 </RCC>

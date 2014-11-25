@@ -1,6 +1,11 @@
-import QtQuick 2.0
+import QtQuick 2.3
+import QtQuick.Controls 1.2
+import QtQuick.Controls.Styles 1.2
 
-Rectangle {
-    width: 100
-    height: 62
+
+ButtonStyle {
+    id: fireButtonStyle
+    background: Rectangle {
+        color: ffeeee
+    }
 }

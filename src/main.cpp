@@ -25,7 +25,7 @@
 
 //#include "audio_manager.h"
 //#include "preset_manager.h"
-//#include "scene.h"
+#include "scene.h"
 
 
 int main(int argc, char **argv) {
@@ -33,10 +33,12 @@ int main(int argc, char **argv) {
     // Hack this in here for now
     //AudioManager *amgr = new AudioManager;
 
-    //Scene scene("./data/projects/demo/scene.json");
+    Scene scene("./data/projects/demo/scene.json");
 
     QGuiApplication app(argc, argv);
-    QQmlApplicationEngine engine(QUrl("qrc:///src/qml/firelight.qml"));
+    QQmlApplicationEngine engine(QUrl("qrc:///src/qml/Firelight.qml"));
+
+    Q_UNUSED(engine)
 
     return app.exec();
 }
